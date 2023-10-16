@@ -145,7 +145,7 @@ aws s3 ls
 2023-05-30 12:24:29 mydrums
 2023-05-30 17:29:41 mydrums-replica
 
-### Notes: 
+### Notes:
 Duration of these temp credentials are usually 1 hr
 Temp credentials can be created by command (make sure your aws_signing_helper client_certificate.crt & client_private.key is available in the working directory)
 ```sh 
