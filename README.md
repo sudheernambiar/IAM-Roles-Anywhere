@@ -145,4 +145,11 @@ aws s3 ls
 2023-05-30 12:24:29 mydrums
 2023-05-30 17:29:41 mydrums-replica
 
-### Note: Duration of these temp credentials are usually 1 hr, if expires you need to execute the same above credential restore command.
+### Notes: 
+Duration of these temp credentials are usually 1 hr
+Temp credentials can be created by command (make sure your aws_signing_helper client_certificate.crt & client_private.key is available in the working directory)
+```sh 
+./aws_signing_helper credential-process  --certificate client_certificate.crt --private-key client_private.key --trust-anchor-arn arn:aws:rolesanywhere:us-east-1:796970074825:trust-anchor/311f8424-5cb5-4f8c-9f72-2a15508a3d2d \
+--profile-arn arn:aws:rolesanywhere:us-east-1:796970074825:profile/1df175fe-f08c-4fdf-84d4-bed7e339391f \
+--role-arn arn:aws:iam::796970074825:role/jenkins_trust"
+```
