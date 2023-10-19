@@ -12,9 +12,8 @@ aws --version
 
 #### aws signing helper
 ```sh
-curl -o aws_signing_helper https://rolesanywhere.amazonaws.com/releases/1.1.0/X86_64/Linux/aws_signing_helper
-chmod +x aws_signing_helper
-./aws_signing_helper version
+curl -o /usr/local/bin/aws_signing_helper https://rolesanywhere.amazonaws.com/releases/1.1.0/X86_64/Linux/aws_signing_helper&& chmod +x /usr/local/bin/aws_signing_helper
+aws_signing_helper version
                               1.1.0
 ```
 
@@ -123,13 +122,13 @@ Once all created now we can go to the client system where all certificate are re
 ## Get your temporary credentials as per role
 
 ```sh
-aws configure set credential_process "./aws_signing_helper credential-process  --certificate <client_certificate.crt> --private-key <client_private.key> --trust-anchor-arn <Trust Anchor ARN> \
+aws configure set credential_process "aws_signing_helper credential-process  --certificate <client_certificate.crt> --private-key <client_private.key> --trust-anchor-arn <Trust Anchor ARN> \
 --profile-arn <Profile ARN> \
 --role-arn <Role ARN>"
 ```
 Sample 
 ```sh
-aws configure set credential_process "./aws_signing_helper credential-process  --certificate client_certificate.crt --private-key client_private.key --trust-anchor-arn arn:aws:rolesanywhere:us-east-1:796970074825:trust-anchor/311f8424-5cb5-4f8c-9f72-2a15508a3d2d \
+aws configure set credential_process "aws_signing_helper credential-process  --certificate client_certificate.crt --private-key client_private.key --trust-anchor-arn arn:aws:rolesanywhere:us-east-1:796970074825:trust-anchor/311f8424-5cb5-4f8c-9f72-2a15508a3d2d \
 --profile-arn arn:aws:rolesanywhere:us-east-1:796970074825:profile/1df175fe-f08c-4fdf-84d4-bed7e339391f \
 --role-arn arn:aws:iam::796970074825:role/jenkins_trust"
 ```
@@ -137,7 +136,7 @@ Once done your .aws/config file will look like below,
 ```sh
 cat  ~/.aws/config
 [default]
-credential_process = ./aws_signing_helper credential-process  --certificate client_certificate.crt --private-key client_private.key --trust-anchor-arn arn:aws:rolesanywhere:us-east-1:796970074825:trust-anchor/311f8424-5cb5-4f8c-9f72-2a15508a3d2d --profile-arn arn:aws:rolesanywhere:us-east-1:796970074825:profile/1df175fe-f08c-4fdf-84d4-bed7e339391f --role-arn arn:aws:iam::796970074825:role/jenkins_trust
+credential_process = aws_signing_helper credential-process  --certificate client_certificate.crt --private-key client_private.key --trust-anchor-arn arn:aws:rolesanywhere:us-east-1:796970074825:trust-anchor/311f8424-5cb5-4f8c-9f72-2a15508a3d2d --profile-arn arn:aws:rolesanywhere:us-east-1:796970074825:profile/1df175fe-f08c-4fdf-84d4-bed7e339391f --role-arn arn:aws:iam::796970074825:role/jenkins_trust
 ```
 
 Test sample output, 
@@ -149,7 +148,7 @@ aws s3 ls
 Duration of these temp credentials are usually 1 hr
 Temp credentials can be created by command (make sure your aws_signing_helper client_certificate.crt & client_private.key is available in the working directory)
 ```sh 
-./aws_signing_helper credential-process  --certificate client_certificate.crt --private-key client_private.key --trust-anchor-arn arn:aws:rolesanywhere:us-east-1:796970074825:trust-anchor/311f8424-5cb5-4f8c-9f72-2a15508a3d2d \
+aws_signing_helper credential-process  --certificate client_certificate.crt --private-key client_private.key --trust-anchor-arn arn:aws:rolesanywhere:us-east-1:796970074825:trust-anchor/311f8424-5cb5-4f8c-9f72-2a15508a3d2d \
 --profile-arn arn:aws:rolesanywhere:us-east-1:796970074825:profile/1df175fe-f08c-4fdf-84d4-bed7e339391f \
 --role-arn arn:aws:iam::796970074825:role/jenkins_trust"
 ```
